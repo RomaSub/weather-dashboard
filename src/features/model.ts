@@ -22,6 +22,7 @@ export const isDarkAtom = atom(true, 'isDark').pipe(withLocalStorage('isDark'))
 
 // атом для мгновенного обновления UI
 export const cityInputAtom = atom('', 'inputCity').pipe(withInit(ctx => ctx.get(cityPersistAtom)))
+
 // атом для сохранения в localstorage и url с debounce
 export const cityPersistAtom = atom('', 'city').pipe(withSearchParamsPersist('city'), withLocalStorage('city'))
 
@@ -31,7 +32,7 @@ export const handleCityChange = action(async (ctx, event) => {
   cityInputAtom(ctx, value)
 
   // debounce
-  await ctx.schedule(() => sleep(400))
+  await ctx.schedule(() => sleep(500))
   cityPersistAtom(ctx, value)
 }).pipe(withConcurrency())
 
