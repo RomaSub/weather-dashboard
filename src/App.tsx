@@ -7,13 +7,7 @@ import { WeatherWidget } from './components/WeatherWidget'
 
 export const App = () => {
   return (
-    <div
-      className='
-        min-h-screen p-10
-        bg-[linear-gradient(112.65deg,_#FFFFFF_0.28%,_#466173_178.65%)]
-        dark:bg-[linear-gradient(110.05deg,_#383838_0%,_#9e9e9e_71.82%)]
-        dark:filter dark:drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]
-      '>
+    <div className='min-h-screen p-10 bg-[#FFFFFF] dark:bg-[#333333]'>
       <div className='flex items-center justify-between gap-4 mb-8'>
         <ThemeSwitcher />
         <SearchBar />
@@ -61,3 +55,11 @@ export const App = () => {
 //      {loadingWeather.isPending && <Spin />}
 //    </>
 //  )
+//       <div className='
+//        min-h-screen p-10
+//        bg-[linear-gradient(112.65deg,_#FFFFFF_0.28%,_#466173_178.65%)]
+//        dark:bg-[linear-gradient(110.05deg,_#383838_0%,_#9e9e9e_71.82%)]
+//        dark:filter dark:drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]
+//      '>
+//
+//       <div className='min-h-screen p-10 bg-[#FFFFFF] dark:bg-[#444444]'>
