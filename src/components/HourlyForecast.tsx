@@ -49,7 +49,7 @@ export const HourlyForecast = () => {
   return (
     <div className='pt-5'>
       <h2 className='text-3xl font-bold text-[#292929] dark:text-[#FFFFFF] text-center mb-2'>Hourly Forecast:</h2>
-      <div className='flex justify-center gap-4 overflow-x-auto '>
+      <div className='flex justify-center gap-4'>
         {forecastData.map((forecast, ind) => (
           <div
             key={ind}

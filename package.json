@@ -1,5 +1,6 @@
 {
-  "name": "weather-dashboard",
+  "name": "weater-dashboard",
+  "homepage": "https://romaSub.github.io/weater-dashboard/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +8,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pages": "gh-pages -d dist"
   },
   "dependencies": {
     "@reatom/framework": "^3.4.60",
@@ -29,6 +31,7 @@
     "eslint": "^9.19.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
+    "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
     "prettier": "3.5.1",
     "typescript": "~5.7.2",
