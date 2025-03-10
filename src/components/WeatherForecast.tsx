@@ -1,45 +1,28 @@
-import { Cloud, CloudDrizzle, CloudRain, CloudSun, Sun } from 'lucide-react'
+import { useAtom } from '@reatom/npm-react'
+import { fetchWeather } from '../features/model'
+import { formatDate } from '../utils'
 
 export const WeatherForecast = () => {
-  const forecastData = [
-    {
-      day: 'Friday, 1 Sep',
-      temperature: '20°C',
-      icon: Cloud,
-    },
-    {
-      day: 'Saturday, 2 Sep',
-      temperature: '22°C',
-      icon: CloudSun,
-    },
-    {
-      day: 'Sunday, 3 Sep',
-      temperature: '27°C',
-      icon: Sun,
-    },
-    {
-      day: 'Monday, 4 Sep',
-      temperature: '18°C',
-      icon: CloudDrizzle,
-    },
-    {
-      day: 'Tuesday, 5 Sep',
-      temperature: '16°C',
-      icon: CloudRain,
-    },
-  ]
+  const [weather] = useAtom(fetchWeather.dataAtom)
 
   return (
-    <div className='p-5'>
-      <h2 className='text-3xl font-bold text-[#292929] dark:text-[#FFFFFF] text-center mb-4'>5 Days Forecast:</h2>
+    <div className='p-4 sm:p-5'>
+      <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-[#292929] dark:text-[#FFFFFF] text-center mb-3 sm:mb-4'>
+        5 Days Forecast:
+      </h2>
       <div className='space-y-2'>
-        {forecastData.map((forecast, ind) => (
+        {weather?.list.map(({ date, items }, ind) => (
           <div key={ind} className='grid grid-cols-3 items-center'>
-            <div className='w-10 h-10 flex items-center justify-center ml-5'>
-              <forecast.icon className='w-10 h-12 text-amber-400 drop-shadow-md' />
+            <div className='w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center ml-2 sm:ml-5'>
+              <img
+                src={`https://openweathermap.org/img/wn/${items[0].weather[0].icon}@2x.png`}
+                className='w-10 h-10 sm:w-12 sm:h-12 drop-shadow-md'
+              />
             </div>
-            <div className='text-2xl font-bold text-[#292929] dark:text-[#FFFFFF] ml-3'>{forecast.temperature}</div>
-            <div className='text-lg font-bold text-[#292929] dark:text-[#FFFFFF]'>{forecast.day}</div>
+            <div className='text-lg sm:text-xl md:text-2xl font-bold text-[#292929] dark:text-[#FFFFFF] ml-1 sm:ml-3'>
+              {Math.round(items[0].main.temp)}°C
+            </div>
+            <div className='text-sm sm:text-base md:text-lg font-bold text-[#292929] dark:text-[#FFFFFF]'>{formatDate(date)}</div>
           </div>
         ))}
       </div>

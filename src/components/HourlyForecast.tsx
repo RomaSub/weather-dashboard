@@ -1,78 +1,44 @@
 import { useAtom } from '@reatom/npm-react'
-import { Sun, Cloud, Navigation } from 'lucide-react'
-import { isDarkAtom } from '../features/model'
+import { Navigation } from 'lucide-react'
+import { fetchWeather, isDarkAtom } from '../features/model'
 
 export const HourlyForecast = () => {
   const [isDarkMode] = useAtom(isDarkAtom)
-  const forecastData = [
-    {
-      hour: '12:00',
-      temperature: '26°C',
-      windSpeed: '3km/h',
-      icon: 'clear',
-      windDirection: 0,
-      gradient: 'bg-gradient-to-b from-orange-400 to-orange-100',
-    },
-    {
-      hour: '15:00',
-      temperature: '27°C',
-      windSpeed: '2km/h',
-      icon: 'clear',
-      windDirection: -30,
-      gradient: 'bg-gradient-to-b from-orange-400 to-orange-100',
-    },
-    {
-      hour: '18:00',
-      temperature: '27°C',
-      windSpeed: '2km/h',
-      icon: 'cloudy',
-      windDirection: 0,
-      gradient: 'bg-gradient-to-b from-orange-400 to-orange-100',
-    },
-    {
-      hour: '21:00',
-      temperature: '25°C',
-      windSpeed: '3km/h',
-      icon: 'cloudy',
-      windDirection: 30,
-      gradient: 'bg-gradient-to-b from-indigo-800 to-indigo-300/0',
-    },
-    {
-      hour: '00:00',
-      temperature: '22°C',
-      windSpeed: '3km/h',
-      icon: 'clear',
-      windDirection: 0,
-      gradient: 'bg-gradient-to-b from-indigo-800 to-indigo-300/0',
-    },
-  ]
+  const [weather] = useAtom(fetchWeather.dataAtom)
+
   return (
-    <div className='pt-5'>
-      <h2 className='text-3xl font-bold text-[#292929] dark:text-[#FFFFFF] text-center mb-2'>Hourly Forecast:</h2>
-      <div className='flex justify-center gap-4'>
-        {forecastData.map((forecast, ind) => (
+    <div className='pt-4 sm:pt-5'>
+      <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-[#292929] dark:text-[#FFFFFF] text-center mb-2'>
+        Hourly Forecast:
+      </h2>
+      <div className='flex justify-start lg:justify-center gap-3 sm:gap-4 overflow-x-auto pb-4 px-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent'>
+        {weather?.today.items.map((item, ind) => (
           <div
             key={ind}
-            className={`relative w-[130px] h-[250px] rounded-[40px] ${isDarkMode ? 'bg-[#373636]' : forecast.gradient} flex flex-col items-center py-4`}>
-            <div className='text-2xl font-bold text-[#292929] dark:text-[#FFFFFF]'>{forecast.hour}</div>
-
-            <div className='flex flex-col items-center justify-between h-full pb-4'>
-              <div className='flex flex-col items-center  mb-3'>
-                {forecast.icon === 'clear' ? (
-                  <Sun className='w-17 h-17 text-yellow-400 drop-shadow-md' />
-                ) : (
-                  <Cloud className='w-17 h-17 text-yellow-400 drop-shadow-md' />
-                )}
-                <p className='text-xl font-bold text-[#292929] dark:text-[#FFFFFF] mt-2'>{forecast.temperature}</p>
+            className={`relative flex-shrink-0 w-[100px] sm:w-[130px] h-[200px] sm:h-[250px] rounded-3xl sm:rounded-[40px] ${isDarkMode ? 'bg-[#373636]' : 'bg-gradient-to-tl from-yellow-200 via-amber-400 to-orange-600'} flex flex-col items-center py-3 sm:py-4`}>
+            <div className='text-lg sm:text-xl md:text-2xl font-bold text-[#292929] dark:text-[#FFFFFF]'>
+              {item.dt_txt.split(' ')[1].slice(0, 5)}
+            </div>
+            <div className='flex flex-col items-center justify-between h-full pb-3 sm:pb-4'>
+              <div className='flex flex-col items-center mb-2 sm:mb-3'>
+                <img
+                  src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                  className='w-14 h-14 sm:w-17 sm:h-17 text-yellow-400 drop-shadow-md'
+                />
+                <p className='text-base sm:text-lg md:text-xl font-bold text-[#292929] dark:text-[#FFFFFF] mt-1 sm:mt-2'>
+                  {Math.round(item.main.temp)}°C
+                </p>
               </div>
               <div className='flex flex-col items-center'>
-                <div className='relative w-14 h-14 flex items-center justify-center'>
+                <div className='relative w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center'>
                   <Navigation
-                    className='w-14 h-14 text-blue-400 drop-shadow-md'
-                    style={{ transform: `rotate(${forecast.windDirection}deg)` }}
+                    className='w-10 h-10 sm:w-14 sm:h-14 text-blue-400 drop-shadow-md'
+                    style={{ transform: `rotate(${item.wind.deg}deg)` }}
                   />
                 </div>
-                <div className='text-lg font-bold text-[#292929] dark:text-[#FFFFFF]'>{forecast.windSpeed}</div>
+                <div className='text-base sm:text-lg font-bold text-[#292929] dark:text-[#FFFFFF]'>
+                  {Math.round(item.wind.speed)}km/h
+                </div>
               </div>
             </div>
           </div>

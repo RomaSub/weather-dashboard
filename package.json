@@ -1,6 +1,6 @@
 {
-  "name": "weater-dashboard",
-  "homepage": "https://romaSub.github.io/weater-dashboard/",
+  "name": "weather-dashboard",
+  "homepage": "https://RomaSub.github.io/weather-dashboard/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,12 +15,14 @@
     "@reatom/framework": "^3.4.60",
     "@reatom/npm-react": "^3.10.5",
     "@reatom/persist-web-storage": "^3.4.4",
+    "@reatom/undo": "^3.4.2",
     "@reatom/url": "^3.9.0",
     "@tailwindcss/vite": "^4.0.9",
     "antd": "^5.24.1",
     "lucide-react": "^0.476.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "tailwindcss": "^4.0.9"
   },
   "devDependencies": {
