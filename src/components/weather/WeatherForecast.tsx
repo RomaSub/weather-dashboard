@@ -1,13 +1,13 @@
 import { useAtom } from '@reatom/npm-react'
-import { fetchWeather } from '../features/model'
-import { formatDate } from '../utils'
+import { fetchWeather } from '../../features/model'
+import { getAverageTemp, formatDate } from '../../utils'
 
 export const WeatherForecast = () => {
   const [weather] = useAtom(fetchWeather.dataAtom)
 
   return (
     <div className='p-4 sm:p-5'>
-      <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-[#292929] dark:text-[#FFFFFF] text-center mb-3 sm:mb-4'>
+      <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-w3 dark:text-b3 text-center mb-3 sm:mb-4'>
         5 Days Forecast:
       </h2>
       <div className='space-y-2'>
@@ -19,10 +19,10 @@ export const WeatherForecast = () => {
                 className='w-10 h-10 sm:w-12 sm:h-12 drop-shadow-md'
               />
             </div>
-            <div className='text-lg sm:text-xl md:text-2xl font-bold text-[#292929] dark:text-[#FFFFFF] ml-1 sm:ml-3'>
-              {Math.round(items[0].main.temp)}°C
+            <div className='text-lg sm:text-xl md:text-2xl font-bold text-w3 dark:text-b3 ml-1 sm:ml-3'>
+              {getAverageTemp(items)}°C
             </div>
-            <div className='text-sm sm:text-base md:text-lg font-bold text-[#292929] dark:text-[#FFFFFF]'>{formatDate(date)}</div>
+            <div className='text-sm sm:text-base md:text-lg font-bold text-w3 dark:text-b3'>{formatDate(date)}</div>
           </div>
         ))}
       </div>

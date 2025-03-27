@@ -12,17 +12,18 @@
     "pages": "gh-pages -d dist"
   },
   "dependencies": {
+    "@reatom/devtools": "^0.12.0",
     "@reatom/framework": "^3.4.60",
     "@reatom/npm-react": "^3.10.5",
     "@reatom/persist-web-storage": "^3.4.4",
     "@reatom/undo": "^3.4.2",
     "@reatom/url": "^3.9.0",
     "@tailwindcss/vite": "^4.0.9",
-    "antd": "^5.24.1",
+    "@types/ramda": "^0.30.2",
     "lucide-react": "^0.476.0",
+    "ramda": "^0.30.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hot-toast": "^2.5.2",
     "tailwindcss": "^4.0.9"
   },
   "devDependencies": {

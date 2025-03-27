@@ -9,10 +9,11 @@ export const request = async <T>(...params: Parameters<typeof fetch>): Promise<T
   return data
 }
 
-export const getCurrentTime = () => {
-  const hours = new Date().getHours().toString().padStart(2, '0')
-  const minutes = new Date().getMinutes().toString().padStart(2, '0')
-  return `${hours}:${minutes}`
+export const getCityTime = (timezone: number): string => {
+  const now = new Date()
+  const utcTime = now.getTime() + now.getTimezoneOffset() * 60000
+  const cityTime = new Date(utcTime + timezone * 1000)
+  return cityTime.toLocaleTimeString('ru-RU').slice(0, 5)
 }
 
 export const formatUnixTimestamp = (unixTimestamp: number): string => {
@@ -34,7 +35,7 @@ export const formatUnixTimestamp = (unixTimestamp: number): string => {
   return `${hoursString}:${minutesString} ${period}`
 }
 
-export const currentDay = () => {
+export const currentDay = (): string => {
   const date = new Date()
   const dayOfWeek = date.toLocaleString('en-US', { weekday: 'long' })
   const dayOfMonth = date.getDate()
@@ -72,9 +73,9 @@ export const groupWeather = (weather: Weather): ProcessedWeather => {
 
   const today = days[0]
   const list = days.slice(1)
-  const { name, sunrise, sunset } = weather.city
+  const { name, sunrise, sunset, timezone } = weather.city
 
-  return { today, list, city: { name, sunrise, sunset } }
+  return { today, list, city: { name, sunrise, sunset, timezone } }
 }
 
 export const capitalize = (city?: string): string => {
@@ -85,4 +86,18 @@ export const capitalize = (city?: string): string => {
     .split(' ')
     .map(el => el[0].toUpperCase() + el.slice(1))
     .join(' ')
+}
+
+export const getAverageTemp = (items: WeatherEntry[]): number => {
+  const len = items.length
+  const sum = items.reduce((acc, el) => el.main.temp + acc, 0)
+  return Math.round(sum / len)
+}
+
+export const getHourlyGradient = (time: string) => {
+  const hour = +time.split(' ')[1].slice(0, 2)
+
+  return hour < 18
+    ? 'bg-gradient-to-br from-gray-300 via-yellow-500 to-amber-400'
+    : 'bg-gradient-to-br from-blue-200 via-blue-400 to-blue-600'
 }

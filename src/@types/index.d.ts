@@ -39,6 +39,7 @@ export type Weather = {
     name: string
     sunrise: number
     sunset: number
+    timezone: number
   }
 }
 
@@ -51,4 +52,12 @@ export type ProcessedWeather = {
   today: WeatherList
   list: Array<WeatherList>
   city: Weather['city']
+}
+
+export type City = {
+  name: string
+  lat: number
+  lon: number
+  country: string
+  state: string
 }
